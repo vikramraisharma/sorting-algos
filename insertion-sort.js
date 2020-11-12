@@ -1,48 +1,34 @@
-
-const nums = [9,1,8,2,7,3,6,4]
-/*  
-    Selection sort works by working through the
-    given array as if it were two sub-arrays. 
-    The first sub-array starts with a length of 0,
-    and it represents the sorted values in the array.
-    The second subarray starts with length array.length
-    and represents the unsorted values in the array.
+const nums = [1,9,2,8,3,7,4,6]
+/*
+    Insertion sort is similar to selection sort in the way
+    that it theoretically begins by separating the array nums
+    into two subarrays. The first is of length 1 and it represents
+    the sorted array. The second is of length nums.length -1 and
+    it represents the unsorted values. The sort works by iterating
+    through the unsorted array, inserting a value into the sorted subarray,
+    and ensuring it is in the right numerical order.
 */
 
-function selectionSort(array) {
-    // iterate through the entire array to begin the sort
-      for(let i = 0; i < array.length; i++){
-          // set the starting index of your SECOND subarray
-          let start = 0;
-          // continue this operation until start approaches the LAST array value's index
-          while(start < array.length - 1){
-              // declare min to determine which value is the smallest
-              let min = start;
-              // iterate through the array from start to the last value
-              for(let i = start; i < array.length; i++){
-                  // if the value approached is greater than the current, set min to the current index
-                  if(array[min] > array[i]) min = i;
-              }
-              // see helper function below, swap the min val with starting val in unsorted subarray
-              swap(start, min, array);
-              // increment start to increase the size of the sorted array, and decrease the size of the unsorted subarray
-              start++
+function insertionSort(array){
+    // iterate through nums
+      for(let i = 1; i < array.length; i++){
+          // set j to previous index, used to compare values
+          let j = i - 1;
+          // iterate through the subarray for each value
+          // determine if the previous values are > the current
+          while(j >= 0 && array[j] > array[i]){
+              // use j to order the values in the sorted subarray
+              array[j + 1] = array[j];
+              j = j -1;
           }
-          return array
-    }
+          // put the value in its new place in the sorted subarray
+          array[j + 1] = array[i]
+      }
+      return array
   }
-
-  /* 
-    swap is a helper function written to swap the minimum
-    value of the unsorted array with the starting value of the 
-    unsorted subarray.
+  /*
+    No swap function is needed here, because we can work with j
+    which is an index placeholder that changes based on its order
+    in the sorted subarray.
   */
-  function swap(x, y, array){
-      let temp = array[y];
-      array[y] = array[x];
-      array[x] = temp;
-  }
-
-  console.log(selectionSort(nums))
-
-  
+  console.log(insertionSort(nums));
